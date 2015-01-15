@@ -16,15 +16,24 @@
 #else
 #define COMPAT_PRECISION
 #endif
+COMPAT_VARYING     vec4 _t1;
+COMPAT_VARYING     vec2 _texCoord1;
+COMPAT_VARYING     vec4 _position1;
 struct input_dummy {
-    vec2 _video_size;
     vec2 _texture_size;
 };
-vec4 _oPosition1;
-vec4 _r0005;
+struct out_vertex {
+    vec4 _position1;
+    vec2 _texCoord1;
+    vec4 _t1;
+};
+out_vertex _ret_0;
+input_dummy _IN1;
+vec4 _r0006;
 COMPAT_ATTRIBUTE vec4 VertexCoord;
 COMPAT_ATTRIBUTE vec4 TexCoord;
 COMPAT_VARYING vec4 TEX0;
+COMPAT_VARYING vec4 TEX1;
  
 uniform mat4 MVPMatrix;
 uniform int FrameDirection;
@@ -34,15 +43,23 @@ uniform COMPAT_PRECISION vec2 TextureSize;
 uniform COMPAT_PRECISION vec2 InputSize;
 void main()
 {
-    vec2 _oTex;
-    _r0005 = VertexCoord.x*MVPMatrix[0];
-    _r0005 = _r0005 + VertexCoord.y*MVPMatrix[1];
-    _r0005 = _r0005 + VertexCoord.z*MVPMatrix[2];
-    _r0005 = _r0005 + VertexCoord.w*MVPMatrix[3];
-    _oPosition1 = _r0005;
-    _oTex = TexCoord.xy;
-    gl_Position = _r0005;
+    out_vertex _OUT;
+    vec2 _ps;
+    _r0006 = VertexCoord.x*MVPMatrix[0];
+    _r0006 = _r0006 + VertexCoord.y*MVPMatrix[1];
+    _r0006 = _r0006 + VertexCoord.z*MVPMatrix[2];
+    _r0006 = _r0006 + VertexCoord.w*MVPMatrix[3];
+    _ps = vec2(1.00000000E+00/TextureSize.x, 1.00000000E+00/TextureSize.y);
+    _OUT._t1 = TexCoord.xxxy + vec4(-_ps.x, 0.00000000E+00, _ps.x, 0.00000000E+00);
+    _ret_0._position1 = _r0006;
+    _ret_0._texCoord1 = TexCoord.xy;
+    _ret_0._t1 = _OUT._t1;
+    gl_Position = _r0006;
     TEX0.xy = TexCoord.xy;
+    TEX1 = _OUT._t1;
+    return;
+    TEX0.xy = _ret_0._texCoord1;
+    TEX1 = _ret_0._t1;
 } 
 #elif defined(FRAGMENT)
 
@@ -66,15 +83,28 @@ precision mediump float;
 #else
 #define COMPAT_PRECISION
 #endif
+COMPAT_VARYING     vec4 _t1;
+COMPAT_VARYING     vec2 _texCoord;
 struct input_dummy {
-    vec2 _video_size;
     vec2 _texture_size;
 };
-vec4 _TMP0;
+struct out_vertex {
+    vec2 _texCoord;
+    vec4 _t1;
+};
+vec3 _TMP4;
+vec3 _TMP5;
+vec4 _TMP3;
+vec4 _TMP2;
+vec4 _TMP1;
+float _TMP0;
 uniform sampler2D Texture;
 input_dummy _IN1;
-vec2 _c0004;
+float _x0010;
+float _TMP11;
+float _x0014;
 COMPAT_VARYING vec4 TEX0;
+COMPAT_VARYING vec4 TEX1;
  
 uniform int FrameDirection;
 uniform int FrameCount;
@@ -83,19 +113,24 @@ uniform COMPAT_PRECISION vec2 TextureSize;
 uniform COMPAT_PRECISION vec2 InputSize;
 void main()
 {
-    vec2 _ps;
-    vec4 _l;
-    vec4 _r;
-    _ps = vec2(float((1.00000000E+00/TextureSize).x), float((1.00000000E+00/TextureSize).y));
-    _c0004 = vec2(TEX0.x - float(_ps.x), TEX0.y);
-    _l = COMPAT_TEXTURE(Texture, _c0004);
-    _r = COMPAT_TEXTURE(Texture, TEX0.xy);
-    if (InputSize.x > 2.56000000E+02) { 
-        _TMP0 = _l + 5.00000000E-01*(_r - _l);
+    _x0010 = 5.00000000E-01*TEX0.x*TextureSize.x;
+    _TMP0 = fract(_x0010);
+    _x0014 = _TMP0 + 5.00000000E-01;
+    _TMP11 = floor(_x0014);
+    _TMP1 = COMPAT_TEXTURE(Texture, TEX1.xw);
+    _TMP2 = COMPAT_TEXTURE(Texture, TEX1.yw);
+    _TMP3 = COMPAT_TEXTURE(Texture, TEX1.zw);
+    if (TextureSize.x > 2.56000000E+02) { 
+        if (_TMP11 == 0.00000000E+00) { 
+            _TMP5 = _TMP2.xyz + 5.00000000E-01*(_TMP3.xyz - _TMP2.xyz);
+        } else {
+            _TMP5 = _TMP2.xyz + 5.00000000E-01*(_TMP1.xyz - _TMP2.xyz);
+        } 
+        _TMP4 = _TMP5;
     } else {
-        _TMP0 = _r;
+        _TMP4 = _TMP2.xyz;
     } 
-    FragColor = _TMP0;
+    FragColor.xyz = _TMP4;
     return;
 } 
 #endif
