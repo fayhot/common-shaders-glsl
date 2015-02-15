@@ -102,11 +102,11 @@ struct input_dummy {
 float _placeholder38;
 };
 input_dummy _IN1;
-pass_1 _PASS11;
+pass_1 _PASSPREV21;
 COMPAT_VARYING vec4 TEX0;
  
 uniform sampler2D Texture;
-uniform sampler2D Pass1Texture;
+uniform sampler2D PassPrev2Texture;
 uniform int FrameDirection;
 uniform int FrameCount;
 uniform COMPAT_PRECISION vec2 OutputSize;
@@ -118,7 +118,7 @@ void main()
     vec4 _pass1;
     vec4 _pass2;
     _pass1 = COMPAT_TEXTURE(Texture, TEX0.xy);
-    _pass2 = COMPAT_TEXTURE(Pass1Texture, TEX0.xy);
+    _pass2 = COMPAT_TEXTURE(PassPrev2Texture, TEX0.xy);
     _OUT._color = 1.00000000E+00 - (1.00000000E+00 - _pass1*1.60000002E+00)*(1.00000000E+00 - _pass2);
     FragColor = _OUT._color;
     return;

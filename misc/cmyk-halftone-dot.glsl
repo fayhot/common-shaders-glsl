@@ -157,7 +157,6 @@ void main()
     _cmyk.xyz = 1.00000000E+00 - _TMP1.xyz;
     _TMP2 = min(_cmyk.y, _cmyk.z);
     _cmyk.w = min(_cmyk.x, _TMP2);
-    _cmyk.xyz = _cmyk.xyz - _cmyk.w;
     _r0066.x = dot(vec2( 7.07000017E-01, 7.07000017E-01), TEX0.xy);
     _r0066.y = dot(vec2( -7.07000017E-01, 7.07000017E-01), TEX0.xy);
     _Kst = (4.00000000E+02*4.79999989E-01*(TextureSize/InputSize))*_r0066;
