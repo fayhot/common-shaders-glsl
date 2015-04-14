@@ -93,18 +93,15 @@ struct input_dummy {
     float _frame_count;
     float _frame_direction;
     float _frame_rotation;
-float _placeholder36;
+float _placeholder35;
 };
-vec4 _TMP3;
 vec4 _TMP2;
 float _TMP1;
 float _TMP0;
 input_dummy _IN1;
 uniform sampler2D PHOSPHOR_LUT;
-uniform sampler2D BIGGER_LUT;
-float _x0009;
-float _x0011;
-vec2 _c0015;
+float _x0008;
+float _x0010;
 COMPAT_VARYING vec4 TEX0;
  
 uniform sampler2D Texture;
@@ -116,24 +113,16 @@ uniform COMPAT_PRECISION vec2 InputSize;
 void main()
 {
     output_dummy _OUT;
-    vec4 _screen;
     vec2 _LUTeffectiveCoord;
     vec4 _image;
-    _x0009 = TEX0.x*TextureSize.x;
-    _TMP0 = fract(_x0009);
-    _x0011 = TEX0.y*TextureSize.y;
-    _TMP1 = fract(_x0011);
+    _x0008 = TEX0.x*TextureSize.x;
+    _TMP0 = fract(_x0008);
+    _x0010 = TEX0.y*TextureSize.y;
+    _TMP1 = fract(_x0010);
     _LUTeffectiveCoord = vec2(_TMP0, _TMP1);
     _image = COMPAT_TEXTURE(Texture, TEX0.xy);
-    if (InputSize.x > 4.00000000E+02) { 
-        _c0015 = _LUTeffectiveCoord/1.64999998E+00;
-        _TMP2 = COMPAT_TEXTURE(BIGGER_LUT, _c0015);
-        _screen = _TMP2*1.20000005E+00;
-    } else {
-        _TMP3 = COMPAT_TEXTURE(PHOSPHOR_LUT, _LUTeffectiveCoord);
-        _screen = _TMP3;
-    } 
-    _OUT._color = _screen*_image;
+    _TMP2 = COMPAT_TEXTURE(PHOSPHOR_LUT, _LUTeffectiveCoord);
+    _OUT._color = _TMP2*_image;
     FragColor = _OUT._color;
     return;
 } 

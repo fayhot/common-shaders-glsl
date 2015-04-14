@@ -42,7 +42,7 @@ filter_linear3 = true
 textures = PHOSPHOR_LUT;BIGGER_LUT
 PHOSPHOR_LUT = luts/cmy.png
 PHOSPHOR_LUT_linear = true
-BIGGER_LUT = luts/magenta-green.png
+BIGGER_LUT = luts/4k-mask.png
 BIGGER_LUT_linear = true
 
 parameters = "target_gamma;monitor_gamma;overscan_percent_x;overscan_percent_y;saturation;contrast;luminance;bright_boost;R;G;B"
