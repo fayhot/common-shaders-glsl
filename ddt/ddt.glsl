@@ -204,7 +204,7 @@ void main()
         if (_TMP47 < _TMP55) { 
             _C1 = (_TMP1.xyz + _TMP4.xyz) - _TMP2.xyz;
         } else {
-            if (_TMP47 > _TMP55) { 
+            if (_TMP47 >= _TMP55) { 
                 _B1 = (_TMP1.xyz + _TMP4.xyz) - _TMP3.xyz;
             } 
         } 

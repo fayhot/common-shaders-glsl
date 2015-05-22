@@ -420,7 +420,7 @@ void main()
         if (_TMP163 < _TMP171) { 
             _C1 = (_TMP1.xyz + _TMP4.xyz) - _TMP2.xyz;
         } else {
-            if (_TMP163 > _TMP171) { 
+            if (_TMP163 >= _TMP171) { 
                 _B1 = (_TMP1.xyz + _TMP4.xyz) - _TMP3.xyz;
             } 
         } 
